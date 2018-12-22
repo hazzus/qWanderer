@@ -18,7 +18,9 @@ private slots:
     void utf8ValidationTest();
     void utf8InvalidationTest();
     void biggerTgmAmountTest();
+    void imageIndexationTest();
     void deletedFileTest();
+    void permissionsFileTest();
     void containStringTest();
     //some gui tests
 };
@@ -65,6 +67,24 @@ void sDsidTests::biggerTgmAmountTest() {
     QVERIFY(!big_ind.is_text());
 }
 
+void sDsidTests::imageIndexationTest() {
+    QFile image("../../test.jpg");
+    if (!image.exists())
+        QSKIP("This test requires image file \"test.jpg\"");
+    Indexer image_ind(image);
+    indexer_tools::process(image_ind);
+    QVERIFY2(!image_ind.is_text(), "This may fail, pictures are bad for trigraming");
+}
+
+void sDsidTests::permissionsFileTest() {
+    QFile unread("unreadable.tst");
+    if (!unread.exists())
+        QSKIP("This test requires unreadable for programm file");
+    Indexer ind(unread);
+    indexer_tools::process(ind);
+    QVERIFY(!ind.is_text());
+}
+
 void sDsidTests::deletedFileTest() {
     QFile no("i_dont_exist.tst");
     no.remove(); // for somedy who would create it ))
@@ -72,6 +92,7 @@ void sDsidTests::deletedFileTest() {
     indexer_tools::process(no_ind);
     QVERIFY(!no_ind.is_text());
 }
+
 
 void sDsidTests::containStringTest() {
     QFile sample("sample.tst");
