@@ -187,7 +187,7 @@ void MainWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 
     QTextCursor cursor(ui->textEdit->document());
     QTextCharFormat fmt;
-    fmt.setBackground(Qt::yellow);
+    fmt.setBackground(Qt::green);
 
     // BUG colors all text
     QString pat = ui->strToSearch->text();

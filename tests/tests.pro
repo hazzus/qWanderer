@@ -6,7 +6,9 @@ TEMPLATE = app
 
 SOURCES += tests.cpp
 
-INCLUDEPATH += ../indexer
+INCLUDEPATH += ../indexer \
+        ../sDsid
+
 
 LIBS += \
         -L../indexer

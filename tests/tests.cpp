@@ -19,7 +19,7 @@ private slots:
     void deletedFileTest();
     void permissionsFileTest();
     void containStringTest();
-    //some gui tests
+    //some gui tests ?
 };
 
 void sDsidTests::similarIndexerTest() {
