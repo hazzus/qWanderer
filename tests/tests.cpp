@@ -3,9 +3,6 @@
 #include <QFileInfo>
 #include "indexer.h"
 #include "indexer.cpp"
-#include "mainwindow.h"
-//#include "mainwindow.cpp"
-// WARNING WHYYYY ????
 
 class sDsidTests : public QObject
 {

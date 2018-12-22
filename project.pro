@@ -1,2 +1,2 @@
 TEMPLATE = subdirs
-SUBDIRS += sDsid tests
+SUBDIRS += sDsid tests indexer

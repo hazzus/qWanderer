@@ -26,15 +26,21 @@ CONFIG += c++17
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
-    indexer.cpp
+        mainwindow.cpp
 
 HEADERS += \
-        mainwindow.h \
-    indexer.h
+        mainwindow.h
 
 FORMS += \
         mainwindow.ui
+
+INCLUDEPATH += \
+        ../indexer
+
+LIBS += \
+        -L../indexer \
+        -lindexer
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
