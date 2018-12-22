@@ -1,10 +1,10 @@
 CONFIG += testcase c++17
-QT = core testlib
+QT = core gui testlib
+QT += widgets
 
 TEMPLATE = app
 
 SOURCES += tests.cpp
-HEADERS +=
 
 INCLUDEPATH += ../sDsid/
 DEFINES += TESTS

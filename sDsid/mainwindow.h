@@ -9,8 +9,6 @@
 #include <QtConcurrent/QtConcurrent>
 #include <QMessageBox>
 #include <QListWidgetItem>
-#include <set>
-#include <fstream>
 #include <algorithm>
 #include "indexer.h"
 

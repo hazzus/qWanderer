@@ -2,8 +2,10 @@
 #include <QTest>
 #include <QFileInfo>
 #include "indexer.h"
-// WARNING WHYYYY ????
 #include "indexer.cpp"
+#include "mainwindow.h"
+//#include "mainwindow.cpp"
+// WARNING WHYYYY ????
 
 class sDsidTests : public QObject
 {
@@ -16,6 +18,9 @@ private slots:
     void utf8ValidationTest();
     void utf8InvalidationTest();
     void biggerTgmAmountTest();
+    void deletedFileTest();
+    void containStringTest();
+    //some gui tests
 };
 
 void sDsidTests::similarIndexerTest() {
@@ -52,7 +57,7 @@ void sDsidTests::utf8InvalidationTest() {
 }
 
 void sDsidTests::biggerTgmAmountTest() {
-    QFile big("bigtest.tst");
+    QFile big("../../bigtest.tst");
     if (!big.exists())
         QSKIP("This test requires big file \"bigtest.tst\" with many trigrams");
     Indexer big_ind(big);
@@ -60,8 +65,33 @@ void sDsidTests::biggerTgmAmountTest() {
     QVERIFY(!big_ind.is_text());
 }
 
+void sDsidTests::deletedFileTest() {
+    QFile no("i_dont_exist.tst");
+    no.remove(); // for somedy who would create it ))
+    Indexer no_ind(no);
+    indexer_tools::process(no_ind);
+    QVERIFY(!no_ind.is_text());
+}
 
-
+void sDsidTests::containStringTest() {
+    QFile sample("sample.tst");
+    sample.open(QFile::WriteOnly);
+    sample.write("Maма мыла раму, папа мыл капот\n");
+    sample.write("How many wood would a woodchuck chuck?\n");
+    sample.write("اهلا صديقي\n");
+    sample.write("דאָס איז אויף שיסל\n");
+    sample.write("非常に興味深い言語\n");
+    sample.close();
+    Indexer index(sample);
+    indexer_tools::process(index);
+    QVERIFY2(index.is_text(), "File is text");
+    QVERIFY2(index.may_contain("мама"), "Russian full substr");
+    QVERIFY2(index.may_contain("рама"), "Russian not substring but matches trigrams");
+    QVERIFY2(index.may_contain("many wou"), "English full substring");
+    QVERIFY2(index.may_contain("אויף"), "Idish full substring");
+    QVERIFY2(index.may_contain("هلا"), "Arabic full substring");
+    QVERIFY2(index.may_contain("興味深"), "Japan full substring");
+}
 
 
 QTEST_MAIN(sDsidTests)
